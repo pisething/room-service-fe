@@ -1,3 +1,4 @@
+import { Agent } from "./agent";
 import { GenderPreference, RoomType, PropertyType } from "./enum";
 import { RoomLocation } from "./location";
 
@@ -50,6 +51,13 @@ export interface Room {
 
     createdAt?: string;
     lastUpdated?: string;
+    imageUrl?: string;
+    agent?: Agent;
+    bedrooms?: number;
+    isFeatured?: boolean;
+    status?: boolean;
+    bathrooms?: number;
+    images?: string[];
 
     extraAttributes?: Record<string, any>; 
 }

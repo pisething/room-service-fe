@@ -3,10 +3,11 @@ import { Page } from '../../models/page';
 import { Room } from '../../models/room';
 import { RoomListParams } from '../../models/room-list-params';
 import { RoomService } from '../../services/room.service';
+import { RoomCardComponent } from "../room-card/room-card.component";
 
 @Component({
   selector: 'app-properties-grid',
-  imports: [],
+  imports: [RoomCardComponent],
   templateUrl: './properties-grid.component.html',
   styleUrl: './properties-grid.component.css'
 })
@@ -26,5 +27,8 @@ export class PropertiesGridComponent {
         this.rooms.set(data.content);
       });
   }
+
+  onFavorite(room: Room) { console.log('Favorite clicked:', room.id); }
+  onView(room: Room)     { console.log('View clicked:', room.id); }
 
 }
