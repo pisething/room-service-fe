@@ -8,7 +8,7 @@
 
         <app-properties-header></app-properties-header>
 
-       <app-properties-grid></app-properties-grid>
+       <app-properties-grid [filters]="filters()"></app-properties-grid>
 
         <app-properties-list></app-properties-list>
 
@@ -18,7 +18,7 @@
 
         <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
 
-        <app-properties-sidebar></app-properties-sidebar>
+        <app-properties-sidebar (filtersChange)="onFiltersChanged($event)"></app-properties-sidebar>
 
         </div>
 
