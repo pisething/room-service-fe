@@ -13,9 +13,10 @@ import { RoomListParams } from '../../models/room-list-params';
   styleUrl: './section.component.css'
 })
 export class SectionComponent {
-  filters = signal<RoomListParams>({ page: 0, size: 12, sort: 'createdAt,desc', priceMin: null, priceMax: null });
+  filters = signal<RoomListParams>({ page: 0, size: 4, priceMin: null, priceMax: null });
 
   onFiltersChanged(f: RoomListParams) {
+    console.log("In section");
     console.log(f)
     this.filters.set(f); // or merge if needed
   }
