@@ -1,8 +1,10 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { Room } from '../../models/room';
 import { RoomService } from '../../services/room.service';
 import { RoomListParams } from '../../models/room-list-params';
 import { PropertyCardComponent } from "../property-card/property-card.component";
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-properties-grid',
@@ -12,11 +14,25 @@ import { PropertyCardComponent } from "../property-card/property-card.component"
 })
 export class PropertiesGridComponent{
   
+  filter = input.required<RoomListParams>();
   
   private roomService = inject(RoomService);
   rooms = signal<Room[]>([]);
+
+  constructor(){
+    toObservable(this.filter)
+      .pipe(
+        switchMap(f => this.roomService.list(f)),
+        takeUntilDestroyed()
+      )
+      .subscribe(page =>{
+        this.rooms.set(page.content);
+      })
+  }
+
   //rooms: Room[]=[];
-  params: RoomListParams = {page: 0, size: 2};
+  /*
+  params: RoomListParams = {page: 0, size: 2, priceMin: null, priceMax: null};
 
   ngOnInit(){
     this.loadData();
@@ -29,5 +45,7 @@ export class PropertiesGridComponent{
       //this.rooms = data.content;
     });
   }
+
+*/  
 
 }
