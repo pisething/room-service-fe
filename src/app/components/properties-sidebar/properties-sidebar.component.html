@@ -1,5 +1,68 @@
 <div class="properties-sidebar" [formGroup]="form">
 
+    <!-- 4 cascading comboboxes at the very top -->
+    <div class="filter-section">
+    <label class="form-label d-block">Location (KH)</label>
+
+    <div class="row g-2 align-items-end">
+      <!-- Province -->
+      <div class="col-12 col-sm-6 col-lg-3">
+        <label class="form-label">Province</label>
+        <select class="form-select"
+                formControlName="provinceCode"
+                (change)="onProvinceChange()">
+          <option value="">-- Province --</option>
+          @for (p of provinces; track p.code) {
+            <option [value]="p.code">{{ p.nameEn }}</option>
+          }
+        </select>
+      </div>
+
+      <!-- District -->
+      <div class="col-12 col-sm-6 col-lg-3">
+        <label class="form-label">District</label>
+        <select class="form-select"
+                formControlName="districtCode"
+                [disabled]="form.controls.districtCode.disabled"
+                (change)="onDistrictChange()">
+          <option value="">-- District --</option>
+          @for (d of districts; track d.code) {
+            <option [value]="d.code">{{ d.nameEn }}</option>
+          }
+        </select>
+      </div>
+
+      <!-- Commune -->
+      <div class="col-12 col-sm-6 col-lg-3">
+        <label class="form-label">Commune</label>
+        <select class="form-select"
+                formControlName="communeCode"
+                [disabled]="form.controls.communeCode.disabled"
+                (change)="onCommuneChange()">
+          <option value="">-- Commune --</option>
+          @for (c of communes; track c.code) {
+            <option [value]="c.code">{{ c.nameEn }}</option>
+          }
+        </select>
+      </div>
+
+      <!-- Village -->
+      <div class="col-12 col-sm-6 col-lg-3">
+        <label class="form-label">Village</label>
+        <select class="form-select"
+                formControlName="villageCode"
+                [disabled]="form.controls.villageCode.disabled">
+          <option value="">-- Village --</option>
+          @for (v of villages; track v.code) {
+            <option [value]="v.code">{{ v.nameEn }}</option>
+          }
+        </select>
+      </div>
+    </div>
+  </div>
+
+
+
     <div class="filter-widget">
     <h5 class="filter-title">Filter Properties</h5>
 
