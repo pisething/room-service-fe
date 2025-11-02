@@ -1,1 +1,15 @@
 .filter-section .form-label { margin-bottom: .25rem; }
+
+/* Restore default disabled look for selects inside .filter-widget */
+.filter-widget .form-select:disabled,
+.filter-widget .form-select[disabled] {
+  background-color: #e9ecef; /* Bootstrap’s standard gray background */
+  opacity: 0.65;             /* Semi-transparent look */
+  cursor: not-allowed;       /* Show disabled cursor */
+}
+
+/* Optional: ensure enabled selects still look normal */
+.filter-widget .form-select:not(:disabled) {
+  background-color: #fff;
+  opacity: 1;
+}

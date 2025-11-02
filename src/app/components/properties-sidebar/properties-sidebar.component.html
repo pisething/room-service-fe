@@ -1,9 +1,20 @@
 <div class="properties-sidebar" [formGroup]="form">
+    <div class="filter-widget">
+    <h5 class="filter-title">Filter Properties</h5>
 
-    <!-- 4 cascading comboboxes at the very top -->
     <div class="filter-section">
-    <label class="form-label d-block">Location (KH)</label>
-    <div class="row g-2 align-items-end">
+        <label class="form-label">Property Type</label>
+        <select class="form-select">
+        <option>All Types</option>
+        <option>House</option>
+        <option>Apartment</option>
+        <option>Condo</option>
+        <option>Townhouse</option>
+        <option>Commercial</option>
+        </select>
+    </div>
+    <div class="filter-section">
+<div class="row g-2 align-items-end">
 
       <!-- Province -->
       <div class="col-12 col-sm-6 col-lg-3">
@@ -58,28 +69,8 @@
         </select>
       </div>
 
+    </div>        
     </div>
-  </div>
-
-   
-
-
-
-    <div class="filter-widget">
-    <h5 class="filter-title">Filter Properties</h5>
-
-    <div class="filter-section">
-        <label class="form-label">Property Type</label>
-        <select class="form-select">
-        <option>All Types</option>
-        <option>House</option>
-        <option>Apartment</option>
-        <option>Condo</option>
-        <option>Townhouse</option>
-        <option>Commercial</option>
-        </select>
-    </div>
-
     <div class="filter-section">
         <label class="form-label">Price Range</label>
         <div class="row g-2">

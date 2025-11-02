@@ -18,7 +18,7 @@ export class PropertiesSidebarComponent {
   private fb = inject(FormBuilder);
   private address = inject(AddressService);
 
-  // ✅ Create controls with initial disabled state.
+  // Create controls with initial disabled state.
   form = this.fb.group({
     provinceCode: this.fb.control<string>(''),
     districtCode: this.fb.control<string>({ value: '', disabled: true }),
@@ -56,7 +56,7 @@ export class PropertiesSidebarComponent {
     this.form.patchValue({ districtCode: '', communeCode: '', villageCode: '' });
 
     if (!code) {
-      // ✅ Toggle disabled state via the control API
+      //  Toggle disabled state via the control API
       this.districtCtrl.disable();
       this.communeCtrl.disable();
       this.villageCtrl.disable();
@@ -72,7 +72,8 @@ export class PropertiesSidebarComponent {
 
   // District -> Communes
   onDistrictChange(code: string) {
-    this.communes = []; this.villages = [];
+    this.communes = []; 
+    this.villages = [];
     this.form.patchValue({ communeCode: '', villageCode: '' });
 
     if (!code) {
