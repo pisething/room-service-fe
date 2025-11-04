@@ -1,5 +1,5 @@
 <div class="properties-sidebar" [formGroup]="form">
-
+    
     <div class="filter-widget">
     <h5 class="filter-title">Filter Properties</h5>
 
@@ -14,6 +14,51 @@
         <option>Commercial</option>
         </select>
     </div>
+    <div class="filter-section">
+        <div class="row g-2">
+            <div class="col-12 col-sm-6 col-lg-3">
+                <label class="form-label">Province</label>
+                <select class="form-select" 
+                    formControlName = "provinceCode"
+                    #provinceSelect
+                    (change)="onProvinceChange(provinceSelect.value)" >
+                    <option value="">Province</option>
+                    @for(p of provinces; track p.code){
+                        <option [value]="p.code">{{p.nameEn}}</option>
+                    }
+                </select>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3">
+                <label class="form-label">District</label>
+                <select class="form-select" formControlName = "districtCode">
+                    <option value="">District</option>
+                    @for(d of districts; track d.code){
+                        <option [value]="d.code">{{d.nameEn}}</option>
+                    }
+                </select>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3">
+                <label class="form-label">Commune</label>
+                <select class="form-select" formControlName = "communeCode">
+                    <option value="">Commune</option>
+                    @for(c of communes; track c.code){
+                        <option [value]="c.code">{{c.nameEn}}</option>
+                    }
+                </select>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3">
+                <label class="form-label">Village</label>
+                <select class="form-select" formControlName = "villageCode">
+                    <option value="">Village</option>
+                    @for(v of villages; track v.code){
+                        <option [value]="v.code">{{v.nameEn}}</option>
+                    }
+                </select>
+            </div>
+
+        </div>
+    </div>
+    
 
     <div class="filter-section">
         <label class="form-label">Price Range</label>
