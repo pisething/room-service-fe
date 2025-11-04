@@ -1,5 +1,5 @@
-<div class="properties-sidebar">
-
+<div class="properties-sidebar" [formGroup]="form">
+    
     <div class="filter-widget">
     <h5 class="filter-title">Filter Properties</h5>
 
@@ -14,15 +14,60 @@
         <option>Commercial</option>
         </select>
     </div>
+    <div class="filter-section">
+        <div class="row g-2">
+            <div class="col-12 col-sm-6 col-lg-3">
+                <label class="form-label">Province</label>
+                <select class="form-select" 
+                    formControlName = "provinceCode"
+                    #provinceSelect
+                    (change)="onProvinceChange(provinceSelect.value)" >
+                    <option value="">Province</option>
+                    @for(p of provinces; track p.code){
+                        <option [value]="p.code">{{p.nameEn}}</option>
+                    }
+                </select>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3">
+                <label class="form-label">District</label>
+                <select class="form-select" formControlName = "districtCode">
+                    <option value="">District</option>
+                    @for(d of districts; track d.code){
+                        <option [value]="d.code">{{d.nameEn}}</option>
+                    }
+                </select>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3">
+                <label class="form-label">Commune</label>
+                <select class="form-select" formControlName = "communeCode">
+                    <option value="">Commune</option>
+                    @for(c of communes; track c.code){
+                        <option [value]="c.code">{{c.nameEn}}</option>
+                    }
+                </select>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-3">
+                <label class="form-label">Village</label>
+                <select class="form-select" formControlName = "villageCode">
+                    <option value="">Village</option>
+                    @for(v of villages; track v.code){
+                        <option [value]="v.code">{{v.nameEn}}</option>
+                    }
+                </select>
+            </div>
+
+        </div>
+    </div>
+    
 
     <div class="filter-section">
         <label class="form-label">Price Range</label>
         <div class="row g-2">
         <div class="col-6">
-            <input type="number" class="form-control" placeholder="Min Price">
+            <input type="number" class="form-control" formControlName="priceMin" placeholder="Min Price">
         </div>
         <div class="col-6">
-            <input type="number" class="form-control" placeholder="Max Price">
+            <input type="number" class="form-control" formControlName="priceMax" placeholder="Max Price">
         </div>
         </div>
     </div>
@@ -75,52 +120,10 @@
         </div>
     </div>
 
-    <button class="btn btn-primary w-100">Apply Filters</button>
+    <button class="btn btn-primary w-100" (click)="applyFilter()">Apply Filters</button>
 
     </div>
 
-    <div class="featured-properties mt-4">
-    <h5>Featured Properties</h5>
-
-    <div class="featured-item">
-        <div class="row g-3 align-items-center">
-        <div class="col-5">
-            <img src="assets/img/real-estate/property-exterior-8.webp" alt="Property" class="img-fluid rounded">
-        </div>
-        <div class="col-7">
-            <h6 class="mb-1">Luxury Penthouse</h6>
-            <p class="text-muted small mb-1">Manhattan, NY</p>
-            <strong class="text-primary">$2,850,000</strong>
-        </div>
-        </div>
-    </div>
-
-    <div class="featured-item">
-        <div class="row g-3 align-items-center">
-        <div class="col-5">
-            <img src="assets/img/real-estate/property-interior-7.webp" alt="Property" class="img-fluid rounded">
-        </div>
-        <div class="col-7">
-            <h6 class="mb-1">Modern Studio</h6>
-            <p class="text-muted small mb-1">Brooklyn, NY</p>
-            <strong class="text-primary">$3,200/mo</strong>
-        </div>
-        </div>
-    </div>
-
-    <div class="featured-item">
-        <div class="row g-3 align-items-center">
-        <div class="col-5">
-            <img src="assets/img/real-estate/property-exterior-9.webp" alt="Property" class="img-fluid rounded">
-        </div>
-        <div class="col-7">
-            <h6 class="mb-1">Family Home</h6>
-            <p class="text-muted small mb-1">Queens, NY</p>
-            <strong class="text-primary">$895,000</strong>
-        </div>
-        </div>
-    </div>
-
-    </div>
+    <app-featured-properties></app-featured-properties>
 
 </div>
