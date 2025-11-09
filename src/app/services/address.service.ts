@@ -29,7 +29,7 @@ export class AddressService {
   // api_url
   // request param
   private http = inject(HttpClient);
-  private base = `${environment.addressApiUrl}/api/admin-areas`;
+  private base = `${environment.addressApiUrl}/api/admin-areas/slim`;
 
   ///room/search/pagination
 

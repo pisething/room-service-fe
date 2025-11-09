@@ -7,4 +7,8 @@ export interface RoomListParams {
     price?: number;
     priceMin: number | null;
     priceMax: number | null;
+    provinceCode?: string | null;
+    districtCode?: string | null;
+    communeCode?: string | null;
+    villageCode?: string | null;
 }

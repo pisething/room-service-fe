@@ -13,7 +13,14 @@ import { AddressService, AdminAreaResponse } from '../../services/address.servic
 export class PropertiesSidebarComponent {
 
   filterChange = output<RoomListParams>();
-  private base: RoomListParams = {page: 0, size: 4, priceMin: null, priceMax: null}
+  private base: RoomListParams = {page: 0, size: 4, 
+    priceMin: null, 
+    priceMax: null,
+    provinceCode: null,
+    districtCode: null,
+    communeCode: null,
+    villageCode: null
+  }
 
   private fb = inject(FormBuilder);
   private addressService = inject(AddressService);
@@ -78,10 +85,56 @@ export class PropertiesSidebarComponent {
     })
   }
 
+  onDistrictChange(code: string){
+    this.communes = [];
+    this.villages = [];
+    this.form.patchValue({communeCode: '', villageCode: ''});
+
+    if(!code){
+      this.communeCtrl.disable();
+      this.villageCtrl.disable();
+      return;
+    }
+
+    this.communeCtrl.enable();
+    this.villageCtrl.disable();
+    this.addressService.getCommunes(code)
+      .subscribe(list =>{
+        this.communes = list;
+      });
+  }
+
+  onCommuneChange(code: string){
+    this.villages = [];
+    this.form.patchValue({villageCode: ''});
+    if(!code){
+      this.villageCtrl.disable();
+      return;
+    }
+    this.villageCtrl.enable();
+    this.addressService.getVillages(code)
+      .subscribe(list =>{
+        this.villages = list;
+      });
+
+  }
+
   applyFilter(){
     //console.log("Apply is clicked")
     //console.log(this.form.getRawValue())
-    const {priceMin, priceMax}  = this.form.getRawValue();
-    this.filterChange.emit({...this.base, priceMin: priceMin ?? null, priceMax: priceMax ?? null})
+    //const {priceMin, priceMax}  = this.form.getRawValue();
+    //this.filterChange.emit({...this.base, priceMin: priceMin ?? null, priceMax: priceMax ?? null})
+
+    const raw  = this.form.getRawValue();
+    this.filterChange.emit({...this.base, 
+      priceMin: raw.priceMin ?? null, 
+      priceMax: raw.priceMax ?? null,
+      provinceCode: raw.provinceCode || null,
+      districtCode: raw.districtCode || null,
+      communeCode: raw.communeCode || null,
+      villageCode: raw.villageCode || null,
+    
+    })
+
   }
 }

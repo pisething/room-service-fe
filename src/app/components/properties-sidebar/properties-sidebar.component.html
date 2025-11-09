@@ -30,7 +30,9 @@
             </div>
             <div class="col-12 col-sm-6 col-lg-3">
                 <label class="form-label">District</label>
-                <select class="form-select" formControlName = "districtCode">
+                <select class="form-select" formControlName = "districtCode"
+                    #districtSelect
+                    (change)="onDistrictChange(districtSelect.value)">
                     <option value="">District</option>
                     @for(d of districts; track d.code){
                         <option [value]="d.code">{{d.nameEn}}</option>
@@ -39,7 +41,9 @@
             </div>
             <div class="col-12 col-sm-6 col-lg-3">
                 <label class="form-label">Commune</label>
-                <select class="form-select" formControlName = "communeCode">
+                <select class="form-select" formControlName = "communeCode"
+                    #communeSelect
+                    (change)="onCommuneChange(communeSelect.value)">
                     <option value="">Commune</option>
                     @for(c of communes; track c.code){
                         <option [value]="c.code">{{c.nameEn}}</option>
