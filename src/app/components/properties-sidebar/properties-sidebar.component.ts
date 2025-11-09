@@ -78,6 +78,40 @@ export class PropertiesSidebarComponent {
     })
   }
 
+  onDistrictChange(code: string){
+    this.communes = [];
+    this.villages = [];
+    this.form.patchValue({communeCode: '', villageCode: ''});
+
+    if(!code){
+      this.communeCtrl.disable();
+      this.villageCtrl.disable();
+      return;
+    }
+
+    this.communeCtrl.enable();
+    this.villageCtrl.disable();
+    this.addressService.getCommunes(code)
+      .subscribe(list =>{
+        this.communes = list;
+      });
+  }
+
+  onCommuneChange(code: string){
+    this.villages = [];
+    this.form.patchValue({villageCode: ''});
+    if(!code){
+      this.villageCtrl.disable();
+      return;
+    }
+    this.villageCtrl.enable();
+    this.addressService.getVillages(code)
+      .subscribe(list =>{
+        this.villages = list;
+      });
+
+  }
+
   applyFilter(){
     //console.log("Apply is clicked")
     //console.log(this.form.getRawValue())
