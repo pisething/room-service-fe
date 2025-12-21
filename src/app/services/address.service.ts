@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { Page } from '../models/page';
 import { Room } from '../models/room';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { buildParams } from '../core/http/utils';
+import { buildParams } from '../utils/param-util';
 
 export enum AdminLevel{
   PROVINCE = 'PROVINCE',

@@ -1,57 +1,57 @@
 <section id="properties" class="properties section">
-    <div class="container" data-aos="fade-up" data-aos-delay="100">
-      <div class="row">
-        <div class="col-lg-12">
-          <!-- NEW: quick filter bar -->
-          <app-properties-filter-bar
-            [filter]="filter()"
-            (filterChange)="onFilterPatch($event)">
-          </app-properties-filter-bar>
-        </div>
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div class="row">
+      <div class="col-lg-12">
+        <app-properties-filter-bar
+          [filter]="facade.filter()"
+          (filterChange)="facade.patchFilter($event)">
+        </app-properties-filter-bar>
+      </div>
 
-        <app-properties-active-filters
-          [filter]="filter()"
-          (remove)="onFilterPatch($event)"
-          (clearAll)="onClearAll()">
-        </app-properties-active-filters>
-  
-        <div class="col-lg-12" data-aos="fade-up" data-aos-delay="200">
-          <!-- Advanced filters (accordion sidebar style, still full width for now) -->
-          <app-properties-sidebar
-            id="advancedFilters"
-            (filterChange)="onFilterPatch($event)">
-          </app-properties-sidebar>
-        </div>
-  
-        <div class="col-lg-12">
-          <app-properties-header
-            [viewMode]="viewMode()"
-            [sort]="sort()"
-            [total]="total()"
-            (viewModeChange)="onViewModeChange($event)"
-            (sortChange)="onSortChange($event)">
-          </app-properties-header>
+      <app-properties-active-filters
+        [filter]="facade.filter()"
+        (remove)="facade.patchFilter($event)"
+        (clearAll)="facade.clearAll()">
+      </app-properties-active-filters>
 
-        @if (viewMode() === 'grid') {
-          <app-properties-grid
-            [filter]="filter()"
-            (pageInfo)="onPageInfo($event)">
-          </app-properties-grid>
+      <div class="col-lg-12" data-aos="fade-up" data-aos-delay="200">
+        <app-properties-sidebar
+          id="advancedFilters"
+          (filterChange)="facade.patchFilter($event)">
+        </app-properties-sidebar>
+      </div>
+
+      <div class="col-lg-12">
+        <app-properties-header
+          [viewMode]="viewMode()"
+          [sort]="sort()"
+          [total]="facade.total()"
+          (viewModeChange)="onViewModeChange($event)"
+          (sortChange)="onSortChange($event)">
+        </app-properties-header>
+
+        @if (facade.state() === 'loading') {
+          <div class="text-center py-5">Loading...</div>
+        } @else if (facade.state() === 'error') {
+          <div class="alert alert-danger mt-3">
+            {{ facade.errorMessage() || 'Failed to load properties' }}
+          </div>
+        } @else if (facade.rooms().length === 0) {
+          <div class="text-center py-5">No properties found</div>
         } @else {
-          <app-properties-list
-            [filter]="filter()"
-            (pageInfo)="onPageInfo($event)">
-          </app-properties-list>
-        }
-
+          @if (viewMode() === 'grid') {
+            <app-properties-grid [rooms]="facade.rooms()"></app-properties-grid>
+          } @else {
+            <app-properties-list [rooms]="facade.rooms()"></app-properties-list>
+          }
 
           <app-pagination
-          [page]="filter().page!!"
-          [totalPages]="totalPages()"
-          (pageChange)="onFilterPatch({ page: $event })">
+            [page]="facade.filter().page ?? 0"
+            [totalPages]="facade.totalPages()"
+            (pageChange)="facade.patchFilter({ page: $event })">
           </app-pagination>
-        </div>
+        }
       </div>
     </div>
-  </section>
-  
+  </div>
+</section>

@@ -4,8 +4,10 @@ import { RoomListParams } from '../models/room-list-params';
 import { Observable } from 'rxjs';
 import { Page } from '../models/page';
 import { Room } from '../models/room';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { buildParams } from '../core/http/utils';
+import { HttpClient } from '@angular/common/http';
+import { buildParams } from '../utils/param-util';
+
+
 
 @Injectable({
   providedIn: 'root'

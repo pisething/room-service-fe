@@ -1,17 +1,17 @@
 <div class="pcard">
   <!-- Image -->
   <div class="pcard-media">
-    <img class="pcard-img" [src]="mainPhoto()" [alt]="room().name">
+    <img class="pcard-img" [src]="vm().mainPhoto" [alt]="vm().room.name">
 
     <!-- Badges -->
     <div class="pcard-badges">
-      @if (room().verifiedListing) {
+      @if (vm().room.verifiedListing) {
         <span class="pcard-badge badge-verified">
           <i class="bi bi-patch-check-fill me-1"></i> Verified
         </span>
       }
-      <span class="pcard-badge" [ngClass]="statusBadgeClass()">
-        {{ statusText() }}
+      <span class="pcard-badge" [ngClass]="vm().statusClass">
+        {{ vm().statusText }}
       </span>
     </div>
 
@@ -21,9 +21,9 @@
         <i class="bi bi-heart"></i>
       </button>
 
-      @if ((room().photoUrls?.length ?? 0) > 1) {
+      @if (vm().photoCount > 1) {
         <span class="count-pill" title="Photos">
-          <i class="bi bi-images me-1"></i> {{ room().photoUrls!.length }}
+          <i class="bi bi-images me-1"></i> {{ vm().photoCount }}
         </span>
       }
     </div>
@@ -32,38 +32,40 @@
   <!-- Content -->
   <div class="pcard-body">
     <div class="d-flex align-items-start justify-content-between gap-2">
-      <div class="pcard-price">{{ priceText() }}</div>
-      @if (room().depositRequired) {
+      <div class="pcard-price">{{ vm().priceText }}</div>
+      @if (vm().room.depositRequired) {
         <span class="pcard-hint" title="Deposit required">
           <i class="bi bi-shield-lock me-1"></i> Deposit
         </span>
       }
     </div>
 
-    <h4 class="pcard-title" [title]="room().name">{{ room().name }}</h4>
+    <h4 class="pcard-title" [title]="vm().room.name">{{ vm().room.name }}</h4>
 
-    <div class="pcard-location" [title]="addressText()">
+    <div class="pcard-location" [title]="vm().addressText">
       <i class="bi bi-geo-alt me-1"></i>
-      <span>{{ addressText() || 'Location not specified' }}</span>
+      <span>{{ vm().addressText || 'Location not specified' }}</span>
     </div>
 
     <!-- Quick facts -->
     <div class="pcard-facts">
-      @if (roomTypeText()) {
-        <span class="fact"><i class="bi bi-door-open me-1"></i> {{ roomTypeText() }}</span>
+      @if (vm().roomTypeText) {
+        <span class="fact"><i class="bi bi-door-open me-1"></i> {{ vm().roomTypeText }}</span>
       }
-      @if (propertyTypeText()) {
-        <span class="fact"><i class="bi bi-house me-1"></i> {{ propertyTypeText() }}</span>
+      @if (vm().propertyTypeText) {
+        <span class="fact"><i class="bi bi-house me-1"></i> {{ vm().propertyTypeText }}</span>
       }
-      @if (room().roomSize) {
-        <span class="fact"><i class="bi bi-arrows-angle-expand me-1"></i> {{ room().roomSize }} m²</span>
+      @if (vm().room.roomSize) {
+        <span class="fact">
+          <i class="bi bi-arrows-angle-expand me-1"></i> {{ vm().room.roomSize }} m²
+        </span>
       }
     </div>
 
     <!-- Amenities icons -->
-    @if (amenityIcons().length > 0) {
+    @if (vm().amenities.length > 0) {
       <div class="pcard-amenities">
-        @for (a of amenityIcons(); track a.icon) {
+        @for (a of vm().amenities; track a.icon) {
           <span class="amenity" [title]="a.label">
             <i class="bi" [ngClass]="a.icon"></i>
           </span>
@@ -73,14 +75,14 @@
 
     <!-- Footer info -->
     <div class="pcard-footer">
-      @if (availableText()) {
+      @if (vm().availableText) {
         <div class="small text-muted">
-          <i class="bi bi-calendar-event me-1"></i> Available from {{ availableText() }}
+          <i class="bi bi-calendar-event me-1"></i> Available from {{ vm().availableText }}
         </div>
       }
 
       <div class="pcard-cta">
-        <a [routerLink]="['/properties', room().id]" class="btn btn-primary btn-sm w-100">
+        <a [routerLink]="['/properties', vm().room.id]" class="btn btn-primary btn-sm w-100">
           View details
         </a>
       </div>
