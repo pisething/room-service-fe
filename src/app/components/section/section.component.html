@@ -1,30 +1,57 @@
 <section id="properties" class="properties section">
-
     <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-    <div class="row">
-       <div class="col-lg-12" data-aos="fade-up" data-aos-delay="200">
-
-        <app-properties-sidebar (filterChange)="onFilterChanged($event)"></app-properties-sidebar>
-
-        </div>        
-
+      <div class="row">
         <div class="col-lg-12">
-
-        <app-properties-header></app-properties-header>
-
-       <app-properties-grid [filter] = "filter()"></app-properties-grid>
-
-        <app-properties-list></app-properties-list>
-
-        <app-pagination></app-pagination>
-
+          <!-- NEW: quick filter bar -->
+          <app-properties-filter-bar
+            [filter]="filter()"
+            (filterChange)="onFilterPatch($event)">
+          </app-properties-filter-bar>
         </div>
 
- 
+        <app-properties-active-filters
+          [filter]="filter()"
+          (remove)="onFilterPatch($event)"
+          (clearAll)="onClearAll()">
+        </app-properties-active-filters>
+  
+        <div class="col-lg-12" data-aos="fade-up" data-aos-delay="200">
+          <!-- Advanced filters (accordion sidebar style, still full width for now) -->
+          <app-properties-sidebar
+            id="advancedFilters"
+            (filterChange)="onFilterPatch($event)">
+          </app-properties-sidebar>
+        </div>
+  
+        <div class="col-lg-12">
+          <app-properties-header
+            [viewMode]="viewMode()"
+            [sort]="sort()"
+            [total]="total()"
+            (viewModeChange)="onViewModeChange($event)"
+            (sortChange)="onSortChange($event)">
+          </app-properties-header>
 
+        @if (viewMode() === 'grid') {
+          <app-properties-grid
+            [filter]="filter()"
+            (pageInfo)="onPageInfo($event)">
+          </app-properties-grid>
+        } @else {
+          <app-properties-list
+            [filter]="filter()"
+            (pageInfo)="onPageInfo($event)">
+          </app-properties-list>
+        }
+
+
+          <app-pagination
+          [page]="filter().page!!"
+          [totalPages]="totalPages()"
+          (pageChange)="onFilterPatch({ page: $event })">
+          </app-pagination>
+        </div>
+      </div>
     </div>
-
-    </div>
-
-</section>
+  </section>
+  

@@ -16,5 +16,14 @@ export enum PropertyType{
     VILLA = 'VILLA', 
     CONDO = 'CONDO', 
     HOUSE = 'HOUSE', 
-    SHARED_HOUSE = 'SHARED_HOUSE'
+    SHARED_HOUSE = 'SHARED_HOUSE',
+    TOWNHOUSE = 'TOWNHOUSE',
+    COMMERCIAL = 'COMMERCIAL'
+
 }
+
+export enum RoomStatus{
+    AVAILABLE =  'AVAILABLE',
+    RENTED = 'RENTED',
+    HIDDEN ='HIDDEN'
+} 

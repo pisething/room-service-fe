@@ -1,3 +1,5 @@
+import { GenderPreference, PropertyType, RoomStatus, RoomType } from "./enum";
+
 export interface Room {
   // ---- Identifiers & Ownership ----
   id?: string;
@@ -67,12 +69,6 @@ export interface Room {
   // ---- Extra ----
   extraAttributes?: Record<string, any>;
 }
-
-// ---------------- Enums ----------------
-export type RoomType = 'SINGLE' | 'DOUBLE' | 'STUDIO';
-export type PropertyType = 'APARTMENT' | 'HOUSE' | 'CONDO' | 'TOWNHOUSE' | 'COMMERCIAL';
-export type GenderPreference = 'MALE' | 'FEMALE' | 'ANY';
-export type RoomStatus = 'AVAILABLE' | 'RENTED' | 'HIDDEN';
 
 // ---------------- Nested Types ----------------
 export interface Address {
