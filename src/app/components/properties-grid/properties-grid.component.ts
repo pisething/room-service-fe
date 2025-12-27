@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { PropertyCardComponent } from '../property-card/property-card.component';
 import { RoomVM } from '../../models/room-vm';
 
@@ -10,4 +10,5 @@ import { RoomVM } from '../../models/room-vm';
 })
 export class PropertiesGridComponent {
   rooms = input.required<RoomVM[]>();
+  favoriteToggle = output<string>(); // roomId
 }
