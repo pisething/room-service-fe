@@ -22,7 +22,7 @@ export class RoomService {
   constructor() { }
 
   list(params?: RoomListParams ) : Observable<Page<Room>>{
-    return this.http.get<Page<Room>>(this.base + "/rooms/search/pagination?size=10", {params: buildParams(params)});
+    return this.http.get<Page<Room>>(this.base + "/rooms/search/pagination", {params: buildParams(params)});
   }
 
  /** GET /rooms/{id} */

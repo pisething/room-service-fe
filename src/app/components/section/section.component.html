@@ -23,15 +23,40 @@
 
         <div class="col-lg-12">
 
-        <app-properties-header></app-properties-header>
+        <app-properties-header [viewMode]="viewMode()"
+            [sort]="sort()"
+            [total]="total()"
+            (viewModeChange)="onViewModeChange($event)"
+            (sortChange)="onSortChange($event)">
+
+        </app-properties-header>
+
+        @if (viewMode() === 'grid') {
+          <app-properties-grid
+            [filter]="filter()"
+            (pageInfo)="onPageInfo($event)"
+            >
+          </app-properties-grid>
+        } @else {
+          <app-properties-list
+            [filter]="filter()"
+            (pageInfo)="onPageInfo($event)">
+          </app-properties-list>
+        }
 
 
 
-       <app-properties-grid [filter] = "filter()"></app-properties-grid>
+       <!-- <app-properties-grid [filter] = "filter()"></app-properties-grid>
 
-        <app-properties-list></app-properties-list>
+        <app-properties-list></app-properties-list> -->
 
-        <app-pagination></app-pagination>
+        <app-pagination
+        [page]="filter().page!!"
+          [totalPages]="totalPages()"
+          (pageChange)="onFilterPatch({ page: $event })"
+        >
+        
+      </app-pagination>
 
         </div>
 
