@@ -19,6 +19,8 @@ export type LoadState = 'idle' | 'loading' | 'success' | 'error';
 export const DEFAULT_FILTER: RoomListParams = {
   page: 0,
   size: 4,
+  sortBy: 'createdAt',
+  direction: 'desc',
 
   priceMin: null,
   priceMax: null,

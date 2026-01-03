@@ -1,9 +1,12 @@
 import { PropertyType, RoomType } from "./enum";
+import { SortOption } from "./sort-option";
 
 export interface RoomListParams {
     page?: number;
     size?: number;
-    sort?: string;
+    sort?: SortOption;
+    sortBy?: 'createdAt' | 'price' | 'viewCount' | 'name';
+    direction?: 'asc' | 'desc';
     roomType?: RoomType | null;
     propertyType?: PropertyType | null;
     price?: number;
@@ -18,5 +21,5 @@ export interface RoomListParams {
     hasParking?: false,
     hasPrivateBathroom?: false,
     hasKitchen?: false,
-    hasWashingMachine?: false
+    hasWashingMachine?: false,
 }

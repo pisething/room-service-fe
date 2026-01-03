@@ -10,6 +10,7 @@ import { PropertiesListComponent } from '../properties-list/properties-list.comp
 
 import { SortOption, ViewMode } from '../../models/sort-option';
 import { PropertiesFacade } from '../../services/properties.facade';
+import { RoomListParams } from '../../models/room-list-params';
 
 @Component({
   selector: 'app-section',
@@ -38,6 +39,21 @@ export class SectionComponent {
 
   onSortChange(sort: SortOption) {
     this.sort.set(sort);
-    this.facade.patchFilter({ sort, page: 0 });
+    const backendSort = this.toBackendSort(sort);
+    this.facade.patchFilter({ ...backendSort, page: 0 });
+  }
+
+  private toBackendSort(sort: SortOption): Pick<RoomListParams, 'sortBy' | 'direction'> {
+    switch (sort) {
+      case 'PRICE_ASC':
+        return { sortBy: 'price', direction: 'asc' };
+      case 'PRICE_DESC':
+        return { sortBy: 'price', direction: 'desc' };
+      case 'MOST_VIEWED':
+        return { sortBy: 'viewCount', direction: 'desc' };
+      case 'NEWEST':
+      default:
+        return { sortBy: 'createdAt', direction: 'desc' };
+    }
   }
 }
