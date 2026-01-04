@@ -40,9 +40,15 @@
           <div class="text-center py-5">No properties found</div>
         } @else {
           @if (viewMode() === 'grid') {
-            <app-properties-grid [rooms]="facade.rooms()"></app-properties-grid>
+            <app-properties-grid [rooms]="facade.rooms()"
+            (favoriteToggle)="facade.toggleFavorite($event)">
+
+            </app-properties-grid>
           } @else {
-            <app-properties-list [rooms]="facade.rooms()"></app-properties-list>
+            <app-properties-list [rooms]="facade.rooms()"
+            (favoriteToggle)="facade.toggleFavorite($event)">
+
+            </app-properties-list>
           }
 
           <app-pagination
