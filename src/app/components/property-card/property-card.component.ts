@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, input, output } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, computed, inject, input, output } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { RoomVM } from '../../models/room-vm';
 
 @Component({
@@ -11,6 +11,7 @@ import { RoomVM } from '../../models/room-vm';
   styleUrl: './property-card.component.css'
 })
 export class PropertyCardComponent {
+  router = inject(Router);
 
   vm = input.required<RoomVM>();
 

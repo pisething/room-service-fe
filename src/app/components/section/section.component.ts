@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 
 import { PropertiesHeaderComponent } from '../properties-header/properties-header.component';
 import { PaginationComponent } from '../pagination/pagination.component';
@@ -11,6 +11,8 @@ import { PropertiesListComponent } from '../properties-list/properties-list.comp
 import { SortOption, ViewMode } from '../../models/sort-option';
 import { PropertiesFacade } from '../../services/properties.facade';
 import { RoomListParams } from '../../models/room-list-params';
+import { NavigationStart, Router } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-section',
@@ -27,11 +29,24 @@ import { RoomListParams } from '../../models/room-list-params';
   styleUrl: './section.component.css'
 })
 export class SectionComponent {
+  private router = inject(Router);
   // UI-only state
   viewMode = signal<ViewMode>('grid');
   sort = signal<SortOption>('NEWEST');
 
-  constructor(public readonly facade: PropertiesFacade) {}
+  private scrollKey(url: string) {
+    return `scroll:${url}`;
+  }
+
+constructor(public readonly facade: PropertiesFacade) {
+  this.router.events
+    .pipe(filter(e => e instanceof NavigationStart))
+    .subscribe(() => {
+      const key = this.scrollKey(this.router.url);
+      sessionStorage.setItem(key, String(window.scrollY));
+    });
+}
+
 
   onViewModeChange(mode: ViewMode) {
     this.viewMode.set(mode);

@@ -5,10 +5,11 @@ import { PropertyAmenitiesComponent } from "../property-amenities/property-ameni
 import { PropertyMapComponent } from "../property-map/property-map.component";
 import { PropertyOverviewComponent } from "../property-overview/property-overview.component";
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { map, filter, tap, switchMap, catchError, of } from 'rxjs';
 import { Room } from '../../models/room';
 import { RoomService } from '../../services/room.service';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-property-details',
@@ -22,14 +23,23 @@ import { RoomService } from '../../services/room.service';
 })
 export class PropertyDetailsComponent {
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
   private roomService = inject(RoomService);
   private destroyRef = inject(DestroyRef);
+  private viewport = inject(ViewportScroller);
 
   room = signal<Room | null>(null);
   loading = signal<boolean>(true);
   error = signal<string | null>(null);
 
   constructor() {
+    // When route becomes /properties/:id, reset to top
+    this.router.events
+      .pipe(filter(e => e instanceof NavigationEnd))
+      .subscribe(() => {
+        this.viewport.scrollToPosition([0, 0]);
+      });
+      
     this.route.paramMap
       .pipe(
         map(p => p.get('id')),
@@ -52,5 +62,25 @@ export class PropertyDetailsComponent {
         this.room.set(r);
         this.loading.set(false);
       });
+  }
+
+  backToResults() {
+    const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+
+    if (returnUrl) {
+      
+      this.router.navigateByUrl(returnUrl).then(() => {
+        const key = `scroll:${returnUrl}`;
+        const y = Number(sessionStorage.getItem(key) ?? '0');
+        requestAnimationFrame(() =>
+          window.scrollTo({ top: y, behavior: 'instant' as any })
+        );
+      });
+
+      return;
+    }
+
+    // fallback
+    this.router.navigateByUrl('/properties');
   }
 }

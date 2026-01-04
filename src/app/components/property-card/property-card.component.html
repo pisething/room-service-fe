@@ -82,9 +82,18 @@
       }
 
       <div class="pcard-cta">
-        <a [routerLink]="['/properties', vm().room.id]" class="btn btn-primary btn-sm w-100">
+        
+        <!-- <a [routerLink]="['/properties', vm().room.id]" class="btn btn-primary btn-sm w-100">
           View details
-        </a>
+        </a> -->
+
+        <a
+  [routerLink]="['/properties', vm().room.id]"
+  [queryParams]="{ returnUrl: router.url }"
+  class="btn btn-primary btn-sm w-100"
+>
+  View details
+</a>
       </div>
     </div>
   </div>

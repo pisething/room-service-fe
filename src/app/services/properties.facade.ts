@@ -18,7 +18,7 @@ export type LoadState = 'idle' | 'loading' | 'success' | 'error';
 /** Keep ONE canonical default. Add fields as your RoomListParams grows. */
 export const DEFAULT_FILTER: RoomListParams = {
   page: 0,
-  size: 4,
+  size: 10,
   sortBy: 'createdAt',
   direction: 'desc',
 

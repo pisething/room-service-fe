@@ -1,8 +1,16 @@
 <section id="property-details" class="property-details section">
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-        <div class="row gy-4">
+        <button class="btn btn-outline-secondary mb-3" type="button" (click)="backToResults()">
+          <i class="bi bi-arrow-left me-1"></i>
+          Back to results
+        </button>
+        @if (loading()) {
+          <div class="text-center py-5">Loading...</div>
+        } @else if (error()) {
+          <div class="alert alert-danger">{{ error() }}</div>
+        } @else if (room()) {
+          <div class="row gy-4">
 
           <div class="col-lg-8">
 
@@ -33,6 +41,8 @@
           </div>
 
         </div>
+        }
+        
 
       </div>
 
