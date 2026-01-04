@@ -28,9 +28,24 @@ export class SectionComponent {
     this.viewMode.set(mode);
   }
 
+  private toBackendSort(sort: SortOption): Pick<RoomListParams, 'sortBy' | 'direction'> {
+    switch (sort) {
+      case 'PRICE_ASC':
+        return { sortBy: 'price', direction: 'asc' };
+      case 'PRICE_DESC':
+        return { sortBy: 'price', direction: 'desc' };
+      case 'MOST_VIEWED':
+        return { sortBy: 'viewCount', direction: 'desc' };
+      case 'NEWEST':
+      default:
+        return { sortBy: 'createdAt', direction: 'desc' };
+    }
+  }
+
   onSortChange(sort: SortOption) {
     this.sort.set(sort);
-    this.facade.patchFilter({ sort, page: 0 });
+     const backendSort = this.toBackendSort(sort);
+    this.facade.patchFilter({ ...backendSort, page: 0 });
   }
 
 }

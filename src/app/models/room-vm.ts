@@ -21,4 +21,5 @@ export interface RoomVM {
   amenities: AmenityVM[];
   roomTypeText: string;
   propertyTypeText: string;
+  isFavorite: boolean;
 }
