@@ -82,6 +82,17 @@ if (f.propertyType) {
     patch: { page: 0, propertyType: null }
   });
 }
+
+// --- Near me ---
+if (f.nearBy === true && f.lat != null && f.lon != null) {
+  const km = f.radiusMeters ? Math.round(f.radiusMeters / 1000) : 3;
+  chips.push({
+    key: 'nearBy',
+    label: `Near me: ${km} km`,
+    patch: { page: 0, nearBy: null, lat: null, lon: null, radiusMeters: null }
+  });
+}
+
 // --- Amenities (only add if present in filter params) ---
 const amenityFields: Array<[keyof RoomListParams, string]> = [
   ['hasWiFi' , 'WiFi'],

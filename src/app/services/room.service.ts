@@ -36,4 +36,9 @@ export class RoomService {
     return this.http.get<Room[]>(`${this.base}/rooms/by-ids`, { params });
   }
 
+  nearby(params: RoomListParams): Observable<Page<Room>> {
+  // expects: lat, lon, radiusMeters, page, size + other filters like roomType, propertyType, priceMin/priceMax, etc.
+  return this.http.get<Page<Room>>(this.base + "/rooms/nearby", { params: buildParams(params) });
+}
+
 }
