@@ -16,6 +16,12 @@
               <span class="plist-badge" [ngClass]="vm.statusClass">
                 {{ vm.statusText }}
               </span>
+              @if (vm.distanceText) {
+                <span class="plist-badge bg-dark text-white">
+                  <i class="bi bi-compass me-1"></i> {{ vm.distanceText }}
+                </span>
+              }
+
             </div>
 
             @if (vm.photoCount > 1) {

@@ -170,3 +170,9 @@
   .pcard-cta {
     margin-top: 10px;
   }
+
+  /* property-card.component.css */
+.badge-distance {
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+}

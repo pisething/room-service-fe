@@ -85,9 +85,35 @@ export function toRoomVM(room: Room, isFavorite: boolean): RoomVM {
     amenities: amenityIcons(room as any),
     roomTypeText: capitalize(room.roomType),
     propertyTypeText: capitalize(room.propertyType),
-    isFavorite
+    isFavorite,
+    distanceMeters: room.distanceMeters ?? null,
+    distanceText: formatDistanceKm(room.distanceMeters)
   };
 }
+
+function formatDistanceKm(km?: number | null): string | null {
+  if (km === null || km === undefined) {
+    return null;
+  }
+  if (!Number.isFinite(km) || km < 0) {
+    return null;
+  }
+
+  // Convert to meters for small distances
+  const meters = km * 1000;
+
+  if (meters < 1000) {
+    return `${Math.round(meters)} m`;
+  }
+
+  // For >= 1km
+  if (km < 10) {
+    return `${km.toFixed(1)} km`;
+  }
+  return `${Math.round(km)} km`;
+}
+
+
 
 function capitalize(v?: string | null): string {
   if (!v) {
