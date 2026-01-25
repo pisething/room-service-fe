@@ -6,6 +6,7 @@ import { Page } from '../models/page';
 import { Room } from '../models/room';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { buildParams } from '../utils/param-util';
+import { buildNearbyParams } from '../utils/nearby-param-util';
 //import { buildParams } from '../core/http/utils';
 
 @Injectable({
@@ -38,7 +39,7 @@ export class RoomService {
 
     nearby(params: RoomListParams): Observable<Page<Room>> {
       // expects: lat, lon, radiusMeters, page, size + other filters like roomType, propertyType, priceMin/priceMax, etc.
-      return this.http.get<Page<Room>>(this.base + "/rooms/nearby", { params: buildParams(params) });
+      return this.http.get<Page<Room>>(this.base + "/rooms/nearby", { params: buildNearbyParams(params) });
     }
 
 }
