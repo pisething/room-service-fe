@@ -87,7 +87,7 @@ export function toRoomVM(room: Room, isFavorite: boolean): RoomVM {
     propertyTypeText: capitalize(room.propertyType),
     isFavorite,
     distanceMeters: room.distanceMeters ?? null,
-    distanceText: formatDistanceKm(room.distanceMeters)
+    distanceText: formatDistance(room.distanceMeters)
   };
 }
 
@@ -98,25 +98,21 @@ function capitalize(v?: string | null): string {
   return v.charAt(0) + v.slice(1).toLowerCase();
 }
 
-function formatDistanceKm(km?: number | null): string | null {
-  if (km === null || km === undefined) {
+function formatDistance(meters?: number | null): string | null {
+  if (meters === null || meters === undefined) {
     return null;
   }
-
-  if (!Number.isFinite(km) || km < 0) {
+  if (!Number.isFinite(meters) || meters < 0) {
     return null;
   }
-  // Convert to meters for small distances
-
-  const meters = km * 1000;
 
   if (meters < 1000) {
     return `${Math.round(meters)} m`;
   }
-  // For >= 1km
 
+  const km = meters / 1000;
+  // 1 decimal for < 10km, else whole km
   if (km < 10) {
-
     return `${km.toFixed(1)} km`;
   }
   return `${Math.round(km)} km`;
